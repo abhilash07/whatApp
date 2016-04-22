@@ -4,10 +4,10 @@ var router = express.Router();
 
 var QuestionSchema = require('../models/question'); 
 
-router.get('/', function(req, res) {
+router.get('/', function(req, res, next) {
 	QuestionSchema.find(function(err, question) {
 		if(err) return console.error(err);
-		res.jsonp({question});
+		res.jsonp({questions: question});
 	})
 });
 
@@ -25,7 +25,7 @@ router.post('/', function(req, res) {
 
 		question.save(function (err, question) {
 			if (err) return console.error(err);
-			res.jsonp({questions: question});
+			res.jsonp({question: question});
 		});
 	} else {
 		res.jsonp({err: 'Invalid form data'});
